@@ -6,43 +6,47 @@ public class Job implements Comparable<Job>{
 	
 	public Job(String w, int s)
 	{
-		//TODO
+		this.jobID = w;
+		this.time = s;
 	}
 	
 	public int getTime()
 	{
-		//TODO
-		return 0;
+		return this.time;
 	}
 	
 	public void setTime(int t)
 	{
-		//TODO
+		this.time = t;
 	}
 	
 	public String getJobID()
 	{
 		//TODO
-		return "";
+		return this.jobID;
 	}
 	
 	public void setJobID(String id)
 	{
-		//TODO
+		this.jobID = id;
 	}
 	
 	@Override
 	public int compareTo(Job other)
 	{
-		//TODO
-		return 0;
+		if (getTime() < other.getTime()) {
+			return -1;
+		} else if (getTime() > other.getTime()) {
+			return +1;
+		} else {
+			return 0;
+		}
 	}
 	
 	
 	public String toString()
 	{
-		//TODO
-		return "";
+		return "{" + this.jobID + "," + this.time + "}";
 	}
 
 }
