@@ -50,7 +50,7 @@ public class Insertion {
 	private static int modBinSearch(Comparable<Job>[] x, int lowestIndex, int highestIndex, Comparable<Job> currElement) {
 		Job[] jobX = (Job[])x;
 		Job jobCurrElement = (Job) currElement;
-		while (lowestIndex <= highestIndex) {
+		while (lowestIndex < highestIndex) {
 			int middleIndex = lowestIndex + (highestIndex - lowestIndex) / 2;
 			if (jobCurrElement.getTime() < jobX[middleIndex].getTime()) {
 				highestIndex = middleIndex;
