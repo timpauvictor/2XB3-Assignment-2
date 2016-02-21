@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Currency;
+
 public class Insertion {
 	/**
 	 * regular insertion sort
@@ -31,39 +33,34 @@ public class Insertion {
 	 * @param n - the size of the input array
 	 */
 	public static void sortBinary (Comparable<Job>[] x, int n) {
-		int index = 0;
-		Job currElement;
-		Comparable[] newArray = new Comparable[x.length];
-		
-		for (int i = 1; i < x.length - 1; i++) {
-			currElement = (Job) x[i];
-			index = modBinSearch(x, currElement);
-			newArray[i] = currElement;
-			
-			while (index >= 0 && ((Job)x[index]).getTime() > currElement.getTime()) {
-				x[index + 1] = x[index];
-				index--;
+		int whereToInsert = 0;
+		for (int i = 0; i < n; i++) {
+			Job currElement = (Job) x[i];
+			whereToInsert = modBinSearch(x, 0, n, currElement);
+			if (whereToInsert < i) {
+				Comparable<Job> tempLoc = x[i];
+				for (int j = i - 1; j >= whereToInsert; j--) {
+					x[j+1] = x[j];
+				}
+				x[whereToInsert] = tempLoc;
 			}
-			newArray[index + 1] = currElement;
 		}
 	}
 	
-	private static int modBinSearch(Comparable<Job>[] x, Comparable<Job> currElement) {
-		int leftMostIndex = 0;
-		int rightMostIndex = x.length - 1;
-		int middleIndex = 0;
-		
-		while (leftMostIndex <= rightMostIndex) {
-			middleIndex = (leftMostIndex + rightMostIndex) / 2;
-			if (x[middleIndex].compareTo((Job) currElement) == 0) {
-				return middleIndex;
-			} else if (x[middleIndex].compareTo((Job) currElement) == -1) {
-				rightMostIndex = middleIndex - 1;
+	private static int modBinSearch(Comparable<Job>[] x, int lowestIndex, int highestIndex, Comparable<Job> currElement) {
+		Job[] jobX = (Job[])x;
+		Job jobCurrElement = (Job) currElement;
+		while (lowestIndex <= highestIndex) {
+			int middleIndex = lowestIndex + (highestIndex - lowestIndex) / 2;
+			if (jobCurrElement.getTime() < jobX[middleIndex].getTime()) {
+				highestIndex = middleIndex -1;
+			} else if (jobCurrElement.getTime() > jobX[middleIndex].getTime()) {
+				lowestIndex = middleIndex + 1;
 			} else {
-				leftMostIndex = middleIndex + 1;
+				return middleIndex;
 			}
 		}
-		return middleIndex - 1;
+		return -1;
 	}
 	
 	/**

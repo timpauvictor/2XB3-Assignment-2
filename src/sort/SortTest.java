@@ -65,5 +65,21 @@ public class SortTest {
 			assertTrue(Insertion.isSorted(JobArray[i]));
 		}
 	}
+	
+	@Test
+	public void testMergeSort() {
+		for (int i = 0; i < JobArray.length; i++) {
+			Merge.sortMerge(JobArray[i], JobArray[i].length);
+			assertTrue(Insertion.isSorted(JobArray[i]));
+		}
+	}
+	
+	@Test
+	public void testHeapSort() {
+		for (int i = 0; i < JobArray.length; i++) {
+			Heap.sortHeap(JobArray[i], JobArray[i].length);
+			assertTrue(Insertion.isSorted(JobArray[i]));
+		}
+	}
 
 }
