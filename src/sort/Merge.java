@@ -7,6 +7,16 @@ public class Merge {
 	 * @param n - the size of the input array
 	 */
 	public static void sortMerge ( Comparable[] x, int n ) {
+		 
+	}
+	
+	private static void sort(Comparable[] a, int lowest, int highest) {
+		
+	}
+	
+	private static void merge(Comparable[] a, int lowest, int middle, int highest) {
+		int i = lowest; 
+		int j = middle + 1;
 		
 	}
 }

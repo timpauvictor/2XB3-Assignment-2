@@ -31,22 +31,39 @@ public class Insertion {
 	 * @param n - the size of the input array
 	 */
 	public static void sortBinary (Comparable<Job>[] x, int n) {
-		for (int i = 0; i < n; i++) {
-			Comparable temp = x[i];
-			int left = 0;
-			int right = 1;
-			while (left < right) {
-				int middle = (left + right) / 2;
-				if (!isLessThan(temp,x[middle])) {
-					left = middle + 1;
-				} else {
-					right = middle;
-				}
+		int index = 0;
+		Job currElement;
+		Comparable[] newArray = new Comparable[x.length];
+		
+		for (int i = 1; i < x.length - 1; i++) {
+			currElement = (Job) x[i];
+			index = modBinSearch(x, currElement);
+			newArray[i] = currElement;
+			
+			while (index >= 0 && ((Job)x[index]).getTime() > currElement.getTime()) {
+				x[index + 1] = x[index];
+				index--;
 			}
-			for (int j = i; j > left; j--) {
-				exchange(x, j-1, j);
+			newArray[index + 1] = currElement;
+		}
+	}
+	
+	private static int modBinSearch(Comparable<Job>[] x, Comparable<Job> currElement) {
+		int leftMostIndex = 0;
+		int rightMostIndex = x.length - 1;
+		int middleIndex = 0;
+		
+		while (leftMostIndex <= rightMostIndex) {
+			middleIndex = (leftMostIndex + rightMostIndex) / 2;
+			if (x[middleIndex].compareTo((Job) currElement) == 0) {
+				return middleIndex;
+			} else if (x[middleIndex].compareTo((Job) currElement) == -1) {
+				rightMostIndex = middleIndex - 1;
+			} else {
+				leftMostIndex = middleIndex + 1;
 			}
 		}
+		return middleIndex - 1;
 	}
 	
 	/**
@@ -76,7 +93,7 @@ public class Insertion {
 	 * @param a - array of Comparables
 	 * @return true if sorted, false otherwise
 	 */
-	private static boolean isSorted(Comparable[] a) {
+	public static boolean isSorted(Comparable[] a) {
 		for (int i = 1; i < a.length; i++) {
 			if (isLessThan(a[i], a[i-1])) {
 				return false;

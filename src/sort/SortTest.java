@@ -1,6 +1,6 @@
 package sort;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -13,12 +13,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SortTest {
-	Comparable[][] jobArray = new Comparable[5][];
+	String[][] preJobArray = new String[5][];
+	Job[][] JobArray = new Job[5][];
 	
 
 	@Before
 	public void setUp() throws Exception {
-		final String baseDir = this.getClass().getResource("").getPath();
+		preJobArray = new String[5][];
+		JobArray = new Job[5][];
+		final String baseDir = Heap.class.getClassLoader().getResource("").getPath();
 		Path filePath = Paths.get(baseDir, "../data/a2_in.txt");
 		List<String> fileData = Files.readAllLines(filePath, Charset.defaultCharset());
         
@@ -27,25 +30,40 @@ public class SortTest {
         	for (int i = 0; i < lineArray.length; i++) {
         		lineArray[i] = lineArray[i].substring(1);
         	}
-        	jobArray[line] = lineArray;
+        	lineArray[lineArray.length - 1] = lineArray[lineArray.length - 1].substring(0, lineArray[lineArray.length - 1].length() - 1); 
+        	preJobArray[line] = lineArray;
+        }
+        
+        for (int i = 0; i < preJobArray.length; i++) {
+        	JobArray[i] = new Job[preJobArray[i].length];
+        	for (int j = 0; j < preJobArray[i].length; j++) {
+        		JobArray[i][j] = new Job(preJobArray[i][j].split(",")[0], Integer.parseInt(preJobArray[i][j].split(",")[1]));
+        	}
         }
 	}
 
 	@Test
 	public void testInsertSort() {
-		fail("Not yet implemented");
+		for (int i = 0; i < JobArray.length; i++) {
+			Insertion.sortInsert(JobArray[i]);
+			assertTrue(Insertion.isSorted(JobArray[i]));
+		}
 	}
 	
 	@Test
 	public void testInsertComparable() {
-		fail("Not yet implemented");
-
+		for (int i = 0; i < JobArray.length; i++) {
+			Insertion.sortComparable(JobArray[i], JobArray[i].length);
+			assertTrue(Insertion.isSorted(JobArray[i]));
+		}
 	}
 	
 	@Test
 	public void testInsertBinary() {
-		fail("Not yet implemented");
-
+		for (int i = 0; i < JobArray.length; i++) {
+			Insertion.sortBinary(JobArray[i], JobArray[i].length);
+			assertTrue(Insertion.isSorted(JobArray[i]));
+		}
 	}
 
 }

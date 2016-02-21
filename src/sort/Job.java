@@ -9,7 +9,7 @@ public class Job implements Comparable<Job>{
 		this.jobID = w;
 		this.time = s;
 	}
-	
+
 	public int getTime()
 	{
 		return this.time;
@@ -34,10 +34,10 @@ public class Job implements Comparable<Job>{
 	@Override
 	public int compareTo(Job other)
 	{
-		if (getTime() < other.getTime()) {
+		if (this.getTime() < other.getTime()) {
 			return -1;
-		} else if (getTime() > other.getTime()) {
-			return +1;
+		} else if (this.getTime() > other.getTime()) {
+			return 1;
 		} else {
 			return 0;
 		}
