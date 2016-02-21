@@ -7,64 +7,48 @@ public class Merge {
 	 * @param n - the size of the input array
 	 */
 	public static void sortMerge ( Comparable[] x, int n ) {
-		Comparable[] aux = new Comparable[n];
-		sort(x, aux, 0, x.length -1);
-	}
-	
-	/**
-	 * function to sort using merge sort
-	 * @param a - our original array
-	 * @param aux - helper array
-	 * @param lowestIndex - the lowest index possible
-	 * @param highestIndex - the highest index possible
-	 */
-	private static void sort(Comparable[] a, Comparable[] aux, int lowestIndex, int highestIndex) {
-		if (highestIndex <= lowestIndex) {
-			return; //exit out if we're not in a valid spot
-		}
-		int middleIndex = lowestIndex + (highestIndex - lowestIndex) / 2;
-		sort(a, aux, lowestIndex, middleIndex);
-		sort(a, aux, middleIndex + 1, highestIndex);
-		merge(a, aux, lowestIndex, middleIndex, highestIndex);
-	}
-	
-	/**
-	 * this is a function to merge the arrays together
-	 * @param a - our original array
-	 * @param aux - helper array
-	 * @param lowestIndex - the lowest possible index
-	 * @param middleIndex - the middle index
-	 * @param highestIndex - the highest possible index
-	 */
-	private static void merge(Comparable[] a, Comparable[] aux, int lowestIndex, int middleIndex, int highestIndex) {
-		for (int i = lowestIndex; i <= highestIndex; i++) {
-			aux[i] = a[i];
-		}
-		
-		int i = lowestIndex;
-		int j = middleIndex + 1;
-		for (int k = lowestIndex; k <= highestIndex; k++) {
-			if (i > middleIndex) {
-				a[k] = aux[j++];
-			} else if (j > highestIndex) {
-				a[k] = aux[i++];
-			} else if (isLessThan(aux[j], aux[i])) {
-				a[k] = aux[j++];
-			} else {
-				a[k] = a[i++];
+		System.out.println(x.length);
+		if (x.length > 1) {
+			Comparable[] leftArr = new Comparable[x.length / 2];
+			System.arraycopy(x, 0, leftArr, 0, x.length / 2);
+			
+			Comparable[] rightArr = new Comparable[x.length / 2];
+			System.arraycopy(x, x.length/2, rightArr, 0, x.length / 2);
+			
+			sortMerge(leftArr, leftArr.length);
+			sortMerge(rightArr, rightArr.length);
+			
+			int i = 0;
+			int j = 0;
+			int k = 0;
+			
+			while (i < leftArr.length && j < rightArr.length) {
+				if (leftArr[i].compareTo(rightArr[j]) > 0) {
+					x[k] = rightArr[j];
+					j++;
+				} else {
+					x[k] = leftArr[i];
+					i++;
+				}
+				k++;
 			}
+			
+			while (i < leftArr.length) {
+				x[k] = leftArr[i];
+				i++;
+				k++;
+			}
+			
+			while (j < rightArr.length) {
+				x[k] = rightArr[j];
+				j++;
+				k++;
+			}
+			
 		}
 	}
 	
-	/**
-	 * check whether arg1 is less than arg2
-	 * @param a - comparable 1
-	 * @param b - comparable 2
-	 * @return true if less than, false otherwise
-	 */
-	private static boolean isLessThan(Comparable a, Comparable b) {
-		return a.compareTo(b) < 0;
-	}
+	
 		
 	
 }
