@@ -37,7 +37,7 @@ public class Merge {
 	 * @param highestIndex - the highest possible index
 	 */
 	private static void merge(Comparable[] a, Comparable[] aux, int lowestIndex, int middleIndex, int highestIndex) {
-		for (int i = lowestIndex; i < highestIndex; i++) {
+		for (int i = lowestIndex; i <= highestIndex; i++) {
 			aux[i] = a[i];
 		}
 		

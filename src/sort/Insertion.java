@@ -53,14 +53,12 @@ public class Insertion {
 		while (lowestIndex <= highestIndex) {
 			int middleIndex = lowestIndex + (highestIndex - lowestIndex) / 2;
 			if (jobCurrElement.getTime() < jobX[middleIndex].getTime()) {
-				highestIndex = middleIndex -1;
-			} else if (jobCurrElement.getTime() > jobX[middleIndex].getTime()) {
+				highestIndex = middleIndex;
+			} else if (jobCurrElement.getTime() >= jobX[middleIndex].getTime()) {
 				lowestIndex = middleIndex + 1;
-			} else {
-				return middleIndex;
 			}
 		}
-		return -1;
+		return lowestIndex;
 	}
 	
 	/**
