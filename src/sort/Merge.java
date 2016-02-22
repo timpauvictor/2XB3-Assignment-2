@@ -7,42 +7,41 @@ public class Merge {
 	 * @param n - the size of the input array
 	 */
 	public static void sortMerge ( Comparable[] x, int n ) {
-		System.out.println(x.length);
-		if (x.length > 1) {
-			Comparable[] leftArr = new Comparable[x.length / 2];
-			System.arraycopy(x, 0, leftArr, 0, x.length / 2);
+		if (x.length > 1) { //as long as the array has a size greater than one element
+			Comparable[] leftArr = new Comparable[x.length / 2]; //make a new array to store the left side
+			System.arraycopy(x, 0, leftArr, 0, x.length / 2); //copy over the data
 			
-			Comparable[] rightArr = new Comparable[x.length / 2];
+			Comparable[] rightArr = new Comparable[x.length / 2]; 
 			System.arraycopy(x, x.length/2, rightArr, 0, x.length / 2);
 			
 			sortMerge(leftArr, leftArr.length);
 			sortMerge(rightArr, rightArr.length);
 			
-			int i = 0;
-			int j = 0;
-			int k = 0;
+			int leftElementIndex = 0;
+			int rightElementIndex = 0;
+			int destIndex = 0;
 			
-			while (i < leftArr.length && j < rightArr.length) {
-				if (leftArr[i].compareTo(rightArr[j]) > 0) {
-					x[k] = rightArr[j];
-					j++;
+			while (leftElementIndex < leftArr.length && rightElementIndex < rightArr.length) {
+				if (leftArr[leftElementIndex].compareTo(rightArr[rightElementIndex]) > 0) {
+					x[destIndex] = rightArr[rightElementIndex];
+					rightElementIndex++;
 				} else {
-					x[k] = leftArr[i];
-					i++;
+					x[destIndex] = leftArr[leftElementIndex];
+					leftElementIndex++;
 				}
-				k++;
+				destIndex++;
 			}
 			
-			while (i < leftArr.length) {
-				x[k] = leftArr[i];
-				i++;
-				k++;
+			while (leftElementIndex < leftArr.length) {
+				x[destIndex] = leftArr[leftElementIndex];
+				leftElementIndex++;
+				destIndex++;
 			}
 			
-			while (j < rightArr.length) {
-				x[k] = rightArr[j];
-				j++;
-				k++;
+			while (rightElementIndex < rightArr.length) {
+				x[destIndex] = rightArr[rightElementIndex];
+				rightElementIndex++;
+				destIndex++;
 			}
 			
 		}

@@ -1,7 +1,5 @@
 package sort;
 
-import java.util.Currency;
-
 public class Insertion {
 	/**
 	 * regular insertion sort
@@ -36,7 +34,7 @@ public class Insertion {
 		int whereToInsert = 0;
 		for (int i = 0; i < n; i++) {
 			Job currElement = (Job) x[i];
-			whereToInsert = modBinSearch(x, 0, n, currElement);
+			whereToInsert = modBinSearch(x, 0, i, currElement);
 			if (whereToInsert < i) {
 				Comparable<Job> tempLoc = x[i];
 				for (int j = i - 1; j >= whereToInsert; j--) {
@@ -47,6 +45,14 @@ public class Insertion {
 		}
 	}
 	
+	/**
+	 * modified binary search algorithm
+	 * @param x - our inpur array
+	 * @param lowestIndex - the lowest index we look at 
+	 * @param highestIndex - the higest index we can look at
+	 * @param currElement - the element we are comparing
+	 * @return - the index we we find the element at
+	 */
 	private static int modBinSearch(Comparable<Job>[] x, int lowestIndex, int highestIndex, Comparable<Job> currElement) {
 		Job[] jobX = (Job[])x;
 		Job jobCurrElement = (Job) currElement;
