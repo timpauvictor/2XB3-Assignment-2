@@ -7,9 +7,9 @@ public class Heap {
 	 * @param n - the size of the input array
 	 */
 	public static void sortHeap ( Comparable[] x, int n ) {
-		for (int k = n/2; k >= 1; k--) { //we split it in half, and sink everything that is smaller than the parent.
+		for (int halfSize = n/2; halfSize >= 1; halfSize--) { //we split it in half, and sink everything that is smaller than the parent.
 										 //this will effectively put the smallest pieces of data at the bottom (heap order)
-			sink(x, k, n);
+			sink(x, halfSize, n);
 		}
 		while (n > 1) { //this second loop takes out the biggest number over and over and restores heap order
 			exchangeElements(x, 1, n--); //exchange elements to 1 
@@ -20,29 +20,42 @@ public class Heap {
 	/**
 	 * this is a simple function to exchange two spots in an array
 	 * @param x - our input array
-	 * @param i - the element we want to move
-	 * @param j - the location we want it to be
+	 * @param sourceIndex - the element we want to move
+	 * @param destIndex - the location we want it to be
 	 */
-	private static void exchangeElements(Comparable[] x, int i, int j) {
-		Comparable swap = x[i-1];
-		x[i-1] = x[j-1];
-		x[j-1] = swap;
+	private static void exchangeElements(Comparable[] x, int sourceIndex, int destIndex) {
+		Comparable swap = x[sourceIndex-1];
+		x[sourceIndex-1] = x[destIndex-1];
+		x[destIndex-1] = swap;
 	}
-
-	private static void sink(Comparable[] x, int k, int n) {
-		while (2*k <= n) {
-			int j = 2*k;
-			if (j < n && isGreaterThan(x, j, j+1)) { //no children!
-				j++;
+	
+	/**
+	 * this is a private function to sink
+	 * @param x - our input array
+	 * @param halfSize - half the array size
+	 * @param n - the length of the array (size)
+	 */
+	private static void sink(Comparable[] x, int halfSize, int n) {
+		while (2*halfSize <= n) {
+			int fullSize = 2*halfSize;
+			if (fullSize < n && isGreaterThan(x, fullSize, fullSize+1)) { //no children!
+				fullSize++;
 			}
-			if (!isGreaterThan(x, k, j)) {
+			if (!isGreaterThan(x, halfSize, fullSize)) {
 				break; //heap ordered!
 			}
-			exchangeElements(x, k, j);
-			k = j;
+			exchangeElements(x, halfSize, fullSize);
+			halfSize = fullSize;
 		}
 	}
 
+	/**
+	 * function to check if one comparable is greater than another
+	 * @param x - input array
+	 * @param j - item one index
+	 * @param i - item two index
+	 * @return true if greater, false otherwise
+	 */
 	private static boolean isGreaterThan(Comparable[] x, int j, int i) { //instead of less, we use greater to organize it from lowest to highest
 		return x[i-1].compareTo(x[j-1]) > 0;
 	}

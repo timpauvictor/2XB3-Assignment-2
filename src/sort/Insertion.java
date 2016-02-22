@@ -53,7 +53,7 @@ public class Insertion {
 	 * @param currElement - the element we are comparing
 	 * @return - the index we we find the element at
 	 */
-	private static int modBinSearch(Comparable<Job>[] x, int lowestIndex, int highestIndex, Comparable<Job> currElement) {
+	private static int modBinSearch(Comparable<Job>[] x, int lowestIndex, int highestIndex, Comparable<Job> currElement) { //this was pretty annoying fam
 		Job[] jobX = (Job[])x;
 		Job jobCurrElement = (Job) currElement;
 		while (lowestIndex < highestIndex) {

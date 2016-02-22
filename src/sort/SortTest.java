@@ -12,14 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SortTest {
-	String[][] preJobArray = new String[5][];
-	Job[][] JobArray = new Job[5][];
+	String[][] preJobArray = new String[7][];
+	Job[][] JobArray = new Job[7][];
 	
 
 	@Before
 	public void setUp() throws Exception {
-		preJobArray = new String[5][];
-		JobArray = new Job[5][];
+		preJobArray = new String[7][];
+		JobArray = new Job[7][];
 		final String baseDir = Heap.class.getClassLoader().getResource("").getPath();
 		Path filePath = Paths.get(baseDir, "../data/a2_in.txt"); //okay so this definietly won't work on a windows machine and maybe not even on an OSX machine
 															 	 //but i had to jump through hoops to get the dumb thing to read my file

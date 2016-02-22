@@ -1,0 +1,7 @@
+COMP SCI SXB3
+VICTOR TIMPAU
+001414243
+The work being submitted by me is my own individual work
+
+Design decisions:
+	Prints out the time each sorting step takes
